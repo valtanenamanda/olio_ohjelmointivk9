@@ -1,0 +1,64 @@
+package com.example.myapplication;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.EditText;
+import android.widget.RadioGroup;
+
+public class AskInfoActivity extends AppCompatActivity {
+
+    private EditText textInput1;
+    private EditText textInput2;
+    private EditText textInput3;
+
+    private int image;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_ask_info);
+        textInput1 = findViewById(R.id.editText);
+        textInput2 = findViewById(R.id.editText2);
+        textInput3 = findViewById(R.id.editText3);
+    }
+
+    public void switchToListUsers(View view) {
+        Intent intent = new Intent(this, ListUsersActivity.class);
+        startActivity(intent);
+
+    }
+
+    public void addUser(View view){
+        RadioGroup rgUserType = findViewById(R.id.rgUserType);
+        RadioGroup rgUserImage = findViewById(R.id.rgUserImage);
+        switch (rgUserImage.getCheckedRadioButtonId()) {
+            case R.id.rbImage1:
+                image = R.drawable.mies;
+                break;
+            case R.id.rbImage2:
+                image = R.drawable.mies2;
+                break;
+        }
+        switch (rgUserType.getCheckedRadioButtonId()) {
+            case R.id.rbTite:
+                User user1 = new User(textInput1.getText().toString(), textInput2.getText().toString(), textInput3.getText().toString(), "Tietotekniikka",image);
+                UserStorage.getInstance().addUser(user1);
+                break;
+            case R.id.rbTuta:
+                User user2 = new User(textInput1.getText().toString(), textInput2.getText().toString(), textInput3.getText().toString(), "Tuotantotalous",image);
+                UserStorage.getInstance().addUser(user2);
+                break;
+            case R.id.rbLate:
+                User user3 = new User(textInput1.getText().toString(), textInput2.getText().toString(), textInput3.getText().toString(), "Laskennallinen tekniikka",image);
+                UserStorage.getInstance().addUser(user3);
+                break;
+            case R.id.rbSate:
+                User user4 = new User(textInput1.getText().toString(), textInput2.getText().toString(), textInput3.getText().toString(), "Sähkötekniikka",image);
+                UserStorage.getInstance().addUser(user4);
+                break;
+        }
+    }
+}
